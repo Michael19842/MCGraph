@@ -1,4 +1,4 @@
-# MCGrapht module
+# MCGraph module
 This module is build as a means to interact with Microsoft Graph via an app registration using Powershell.
 
 ## Usage
