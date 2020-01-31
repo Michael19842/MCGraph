@@ -26,10 +26,26 @@ $params = @{
 Connect-MSGAppRegistration @params
 ```
 
+### Example: Get all users with a displayname that starts with michael
+
+```PowerShell
+Get-MSGUser michael 
+
+Get-MSGUser ${DisplayName= "michael"}
+
+Get-MSGUser -startswith ${DisplayName= "michael"}
+```
+
+Output is limited to 100 records by default. You're allowed to request up to 999 record in one api call. To get all available records you can simply add the"-AllRecords" switch. This will automatically call itterate the api call and collect alle avaible records as a response.  
+
 ### Example: 
 
 ```PowerShell
+Get-MSGUser -top 1 #to max 999
+
+Get-MSGUser -AllRecords 
 ```
+
 
 
 ## Special thanks to 
