@@ -1,0 +1,5 @@
+*.zip
+.vscode/*
+Test-module.ps1
+build/build.settings.json
+tests/MSGraph.Pester.Default.json
