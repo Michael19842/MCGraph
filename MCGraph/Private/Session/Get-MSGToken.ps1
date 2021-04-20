@@ -11,14 +11,14 @@ function Get-MSGToken {
     #[OutputType([Token])]
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory=$true, Position=0,ParameterSetName = "ApplicationSecret")][ValidateNotNullOrEmpty()][string]$TenantId,
-        [Parameter(Mandatory=$true, Position=1,ParameterSetName = "ApplicationSecret")][ValidateNotNullOrEmpty()][string]$ApplicationId,
-        [Parameter(Mandatory=$true, Position=2,ParameterSetName = "ApplicationSecret")][ValidateNotNullOrEmpty()][string]$Secret,
-        [Parameter(Mandatory=$false, Position=3,ParameterSetName = "ApplicationSecret")][ValidateNotNullOrEmpty()][string]$Scope = "msGraphDefaultScope"
+        [Parameter(Mandatory = $true, Position = 0, ParameterSetName = "ApplicationSecret")][ValidateNotNullOrEmpty()][string]$TenantId,
+        [Parameter(Mandatory = $true, Position = 1, ParameterSetName = "ApplicationSecret")][ValidateNotNullOrEmpty()][string]$ApplicationId,
+        [Parameter(Mandatory = $true, Position = 2, ParameterSetName = "ApplicationSecret")][ValidateNotNullOrEmpty()][string]$Secret,
+        [Parameter(Mandatory = $false, Position = 3, ParameterSetName = "ApplicationSecret")][ValidateNotNullOrEmpty()][string]$Scope = "msGraphDefaultScope"
     )
     
     begin {
-        $uri = Get-MSGEndPoint -EndPoint "msOAuthv2" -EndPointParameters @{TenantId = $TenantId}
+        $uri = Get-MSGEndPoint -EndPoint "msOAuthv2" -EndPointParameters @{TenantId = $TenantId }
     }
     
     process {
@@ -34,20 +34,18 @@ function Get-MSGToken {
             }
         }
 
-        if($RequestBody -and $uri) {
-            try{
-                $tokenRequest = Invoke-WebRequest -Method Post -Uri $uri -ContentType "application/x-www-form-urlencoded" -Body $RequestBody -UseBasicParsing
-                $tokenContent = $tokenRequest.Content | ConvertFrom-Json
-
-                $ReturnToken = [Token]::new($tokenContent.token_type,$tokenContent.access_token,$tokenContent.expires_in)
+        if ($RequestBody -and $uri) {
+            try {
+                $tokenContent = Invoke-MSGWebRequest -Method Post -Uri $uri -ContentType "application/x-www-form-urlencoded" -Body $RequestBody -NoAuthorization
+                $ReturnToken = [Token]::new($tokenContent.token_type, $tokenContent.access_token, $tokenContent.expires_in)
             }
             catch {
-                $ReturnToken = [Token]::new($false,"TokenRequest invalid")
+                $ReturnToken = [Token]::new($false, "TokenRequest invalid")
             }
             Return $ReturnToken
         }
         else {
-            $ReturnToken = [Token]::new($false,"TokenRequest incomplete")
+            $ReturnToken = [Token]::new($false, "TokenRequest incomplete")
         }
     }
     

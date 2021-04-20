@@ -3,7 +3,7 @@ Deploy Module {
         FromSource MCGraph
         To PSGallery
         WithOptions @{
-            ApiKey = "oy2covzg2q2etifmc5sqr4h4zg6uwzvezos4rvtxmmufrm"
+            ApiKey = "oy2mpuwfmgv6fnvnbddaukyqltf33b5e7olf3kn4aivgey"
         }
     }
 }

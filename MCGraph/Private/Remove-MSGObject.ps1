@@ -17,7 +17,7 @@ function Remove-MSGObject {
         if (-not $PSBoundParameters.ContainsKey('WhatIf')) {
             $WhatIfPreference = $PSCmdlet.SessionState.PSVariable.GetValue('WhatIfPreference')
         }
-        $method = "delete"
+        $method = "DELETE"
     }
     
     

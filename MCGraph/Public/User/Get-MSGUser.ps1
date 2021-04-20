@@ -1,10 +1,10 @@
 function Get-MSGUser {
     [CmdletBinding(DefaultParameterSetName = "GeneratedFilter")]
     param (
-        [Parameter(Mandatory = $false, ParameterSetName = "GeneratedFilter", Position = 0)] [ValidateScript({Confirm-MSGStartWithParamType $_})] $StartsWith,
+        [Parameter(Mandatory = $false, ParameterSetName = "GeneratedFilter", Position = 0)] [ValidateScript( { Confirm-MSGStartWithParamType $_ })] $StartsWith,
         [Parameter(Mandatory = $false, ParameterSetName = "GeneratedFilter")] [hashtable] $IsExactly,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "CustomFilter")][ValidateNotNullOrEmpty] [String] $CustomFilter,
+        [Parameter(Mandatory = $true, ParameterSetName = "CustomFilter")][ValidateNotNullOrEmpty()] [String] $CustomFilter,
         [Parameter(Mandatory = $false)] [array] $Select,
         [Parameter(Mandatory = $false)] [int] $Top = $DefaultRecordLimit,
 
@@ -28,8 +28,8 @@ function Get-MSGUser {
     }
     
     end {
-        if(!$Select){
-            $ReturnValue | ForEach-Object{$_.PSObject.TypeNames.Insert(0,"MSGraph.Users")}
+        if (!$Select) {
+            $ReturnValue | ForEach-Object { $_.PSObject.TypeNames.Insert(0, "MSGraph.Users") }
         }
         Return $ReturnValue 
     }
